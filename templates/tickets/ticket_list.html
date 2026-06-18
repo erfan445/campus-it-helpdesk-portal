@@ -1,0 +1,50 @@
+{% extends 'layouts/base.html' %}
+{% block title %}Tickets | Campus Helpdesk{% endblock %}
+{% block page_heading %}Support Tickets{% endblock %}
+{% block page_subtitle %}Search, filter, update, and export support requests.{% endblock %}
+
+{% block content %}
+<div class="action-bar">
+    <form method="get" class="filter-bar">
+        <input type="text" name="q" value="{{ selected.q }}" placeholder="Search by subject, ref, user, asset...">
+        <select name="status">
+            <option value="">All statuses</option>
+            {% for value, label in status_choices %}<option value="{{ value }}" {% if selected.status == value %}selected{% endif %}>{{ label }}</option>{% endfor %}
+        </select>
+        <select name="priority">
+            <option value="">All priorities</option>
+            {% for value, label in priority_choices %}<option value="{{ value }}" {% if selected.priority == value %}selected{% endif %}>{{ label }}</option>{% endfor %}
+        </select>
+        <select name="category">
+            <option value="">All categories</option>
+            {% for value, label in category_choices %}<option value="{{ value }}" {% if selected.category == value %}selected{% endif %}>{{ label }}</option>{% endfor %}
+        </select>
+        <button class="btn-secondary" type="submit">Filter</button>
+    </form>
+    <a class="btn-primary" href="{% url 'ticket_create' %}">New Ticket</a>
+</div>
+
+<div class="card table-card">
+    <table>
+        <thead>
+            <tr><th>Reference</th><th>Subject</th><th>Priority</th><th>Status</th><th>Requester</th><th>Assigned</th><th>Due</th></tr>
+        </thead>
+        <tbody>
+            {% for ticket in page_obj %}
+                <tr class="{% if ticket.is_overdue %}overdue-row{% endif %}">
+                    <td>{{ ticket.reference }}</td>
+                    <td><a href="{% url 'ticket_detail' ticket.id %}">{{ ticket.subject }}</a></td>
+                    <td>{{ ticket.get_priority_display }}</td>
+                    <td>{{ ticket.get_status_display }}</td>
+                    <td>{{ ticket.requester.username }}</td>
+                    <td>{{ ticket.assigned_to.username|default:'Unassigned' }}</td>
+                    <td>{{ ticket.due_at|date:'Y-m-d H:i'|default:'-' }}</td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="7">No tickets found.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% include 'partials/pagination.html' %}
+</div>
+{% endblock %}

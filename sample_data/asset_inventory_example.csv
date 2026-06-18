@@ -1,0 +1,4 @@
+asset_tag,name,category,status,serial_number,location
+EMU-LAP-001,Dell Latitude 5420,LAPTOP,ACTIVE,DL5420-1182,Library
+EMU-PRN-014,HP LaserJet M404,PRINTER,IN_REPAIR,HPM404-9921,Admin Office
+EMU-SW-003,Cisco 2960 Switch,NETWORK,ACTIVE,C2960-2301,Network Rack A

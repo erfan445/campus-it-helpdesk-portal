@@ -1,0 +1,17 @@
+{% extends 'layouts/base.html' %}
+{% block title %}{{ page_title }} | Campus Helpdesk{% endblock %}
+{% block page_heading %}{{ page_title }}{% endblock %}
+{% block page_subtitle %}Keep device inventory clear and useful for troubleshooting.{% endblock %}
+
+{% block content %}
+<div class="card narrow-card">
+    <form method="post" class="form-stack">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="form-actions">
+            <button class="btn-primary" type="submit">Save asset</button>
+            <a class="btn-secondary" href="{% url 'asset_list' %}">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'layouts/base.html' %}
+{% block title %}{{ page_title }} | Campus Helpdesk{% endblock %}
+{% block page_heading %}{{ page_title }}{% endblock %}
+{% block page_subtitle %}Capture useful details so the support team can troubleshoot faster.{% endblock %}
+
+{% block content %}
+<div class="card narrow-card">
+    <form method="post" class="form-stack">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="form-actions">
+            <button class="btn-primary" type="submit">Save</button>
+            <a class="btn-secondary" href="{% url 'ticket_list' %}">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

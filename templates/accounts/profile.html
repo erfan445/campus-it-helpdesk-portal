@@ -1,0 +1,17 @@
+{% extends 'layouts/base.html' %}
+{% block title %}Profile | Campus Helpdesk{% endblock %}
+{% block page_heading %}My Profile{% endblock %}
+{% block page_subtitle %}Keep your department and contact information updated.{% endblock %}
+
+{% block content %}
+<div class="card narrow-card">
+    <h1>Profile details</h1>
+    <p><strong>Username:</strong> {{ request.user.username }}</p>
+    <p><strong>Role:</strong> {{ request.user.profile.get_role_display }}</p>
+    <form method="post" class="form-stack">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn-primary" type="submit">Save profile</button>
+    </form>
+</div>
+{% endblock %}

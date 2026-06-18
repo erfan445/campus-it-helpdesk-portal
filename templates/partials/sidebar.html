@@ -1,0 +1,28 @@
+<aside class="sidebar">
+    <div class="sidebar-brand">
+        <span class="logo-mark">HD</span>
+        <div>
+            <strong>Campus Helpdesk</strong>
+            <small>IT Services Portal</small>
+        </div>
+    </div>
+
+    <nav class="sidebar-nav">
+        {% if user.is_authenticated %}
+            <a href="{% url 'dashboard' %}">Dashboard</a>
+            <a href="{% url 'ticket_list' %}">Tickets</a>
+            <a href="{% url 'ticket_create' %}">New Ticket</a>
+            <a href="{% url 'asset_list' %}">Assets</a>
+            <a href="{% url 'profile' %}">Profile</a>
+            <a href="{% url 'export_tickets_csv' %}">Export CSV</a>
+        {% else %}
+            <a href="{% url 'login' %}">Login</a>
+            <a href="{% url 'register' %}">Register</a>
+        {% endif %}
+    </nav>
+
+    <div class="sidebar-note">
+        <strong>Portfolio Project</strong>
+        <p>Ticketing, assets, reporting, and IT support workflow.</p>
+    </div>
+</aside>

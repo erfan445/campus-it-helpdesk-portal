@@ -1,0 +1,47 @@
+{% extends 'layouts/base.html' %}
+{% block title %}Dashboard | Campus Helpdesk{% endblock %}
+{% block page_heading %}Helpdesk Dashboard{% endblock %}
+{% block page_subtitle %}A quick overview of current IT support workload.{% endblock %}
+
+{% block content %}
+<section class="metrics-grid">
+    <div class="metric-card"><span>Total</span><strong>{{ total }}</strong></div>
+    <div class="metric-card"><span>Open</span><strong>{{ open }}</strong></div>
+    <div class="metric-card"><span>Assigned</span><strong>{{ assigned }}</strong></div>
+    <div class="metric-card"><span>In Progress</span><strong>{{ in_progress }}</strong></div>
+    <div class="metric-card danger"><span>Overdue</span><strong>{{ overdue }}</strong></div>
+</section>
+
+<section class="content-grid two-columns">
+    <div class="card">
+        <div class="section-header">
+            <h2>Recent tickets</h2>
+            <a href="{% url 'ticket_list' %}">View all</a>
+        </div>
+        {% for ticket in recent %}
+            <article class="ticket-row">
+                <div>
+                    <a href="{% url 'ticket_detail' ticket.id %}">{{ ticket.reference }} · {{ ticket.subject }}</a>
+                    <p>{{ ticket.get_category_display }} · {{ ticket.get_priority_display }}</p>
+                </div>
+                <span class="status-pill">{{ ticket.get_status_display }}</span>
+            </article>
+        {% empty %}
+            <p>No tickets yet.</p>
+        {% endfor %}
+    </div>
+
+    <div class="card">
+        <h2>Workload summary</h2>
+        <h3>By status</h3>
+        {% for row in by_status %}
+            <div class="summary-row"><span>{{ row.status }}</span><strong>{{ row.total }}</strong></div>
+        {% empty %}<p>No status data yet.</p>{% endfor %}
+
+        <h3>By priority</h3>
+        {% for row in by_priority %}
+            <div class="summary-row"><span>{{ row.priority }}</span><strong>{{ row.total }}</strong></div>
+        {% empty %}<p>No priority data yet.</p>{% endfor %}
+    </div>
+</section>
+{% endblock %}

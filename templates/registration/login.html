@@ -1,0 +1,22 @@
+{% extends 'layouts/base.html' %}
+{% block title %}Login | Campus Helpdesk{% endblock %}
+{% block page_heading %}Login{% endblock %}
+{% block page_subtitle %}Access the helpdesk portal with a demo account or your own account.{% endblock %}
+
+{% block content %}
+<section class="auth-card card">
+    <h1>Sign in</h1>
+    <form method="post" class="form-stack">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn-primary" type="submit">Login</button>
+    </form>
+
+    <div class="demo-panel">
+        <h3>Demo accounts</h3>
+        <p><strong>Admin:</strong> admin / admin12345</p>
+        <p><strong>Technician:</strong> technician1 / tech12345</p>
+        <p><strong>Requester:</strong> student1 / user12345</p>
+    </div>
+</section>
+{% endblock %}

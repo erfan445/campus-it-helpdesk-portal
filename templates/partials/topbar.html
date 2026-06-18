@@ -1,0 +1,16 @@
+<header class="topbar">
+    <div>
+        <h2>{% block page_heading %}IT Support Workspace{% endblock %}</h2>
+        <p>{% block page_subtitle %}Track issues, assign work, and document fixes.{% endblock %}</p>
+    </div>
+
+    <div class="user-area">
+        {% if user.is_authenticated %}
+            <span>{{ user.username }}</span>
+            <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="link-button">Logout</button>
+            </form>
+        {% endif %}
+    </div>
+</header>

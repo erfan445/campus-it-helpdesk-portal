@@ -1,0 +1,15 @@
+{% extends 'layouts/base.html' %}
+{% block title %}Register | Campus Helpdesk{% endblock %}
+{% block page_heading %}Create account{% endblock %}
+{% block page_subtitle %}Create a requester account for submitting IT support tickets.{% endblock %}
+
+{% block content %}
+<section class="auth-card card">
+    <h1>Register</h1>
+    <form method="post" class="form-stack">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn-primary" type="submit">Create account</button>
+    </form>
+</section>
+{% endblock %}

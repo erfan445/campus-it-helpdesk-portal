@@ -1,0 +1,4 @@
+subject,description,category,priority,impact,urgency,location
+Wi-Fi issue in classroom,Wireless connection drops during lectures,NETWORK,HIGH,MEDIUM,HIGH,Classroom B204
+Printer toner issue,Printer output is faded,HARDWARE,LOW,LOW,LOW,Admin Office
+Suspicious email,User received password reset phishing email,SECURITY,CRITICAL,MEDIUM,CRITICAL,Email account

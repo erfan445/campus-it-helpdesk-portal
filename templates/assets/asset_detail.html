@@ -1,0 +1,37 @@
+{% extends 'layouts/base.html' %}
+{% block title %}{{ asset.asset_tag }} | Campus Helpdesk{% endblock %}
+{% block page_heading %}{{ asset.asset_tag }}{% endblock %}
+{% block page_subtitle %}{{ asset.name }}{% endblock %}
+
+{% block content %}
+<section class="content-grid two-columns">
+    <div class="card">
+        <div class="section-header">
+            <h1>{{ asset.name }}</h1>
+            <a href="{% url 'asset_update' asset.id %}">Edit</a>
+        </div>
+        <dl class="details-list">
+            <dt>Category</dt><dd>{{ asset.get_category_display }}</dd>
+            <dt>Status</dt><dd>{{ asset.get_status_display }}</dd>
+            <dt>Serial number</dt><dd>{{ asset.serial_number|default:'-' }}</dd>
+            <dt>Location</dt><dd>{{ asset.location|default:'-' }}</dd>
+            <dt>Assigned to</dt><dd>{{ asset.assigned_to.username|default:'-' }}</dd>
+            <dt>Purchase date</dt><dd>{{ asset.purchase_date|date:'Y-m-d'|default:'-' }}</dd>
+            <dt>Warranty expiry</dt><dd>{{ asset.warranty_expiry|date:'Y-m-d'|default:'-' }}</dd>
+        </dl>
+        {% if asset.notes %}<h3>Notes</h3><p>{{ asset.notes }}</p>{% endif %}
+    </div>
+
+    <div class="card">
+        <h2>Related tickets</h2>
+        {% for ticket in asset.tickets.all %}
+            <div class="ticket-row">
+                <a href="{% url 'ticket_detail' ticket.id %}">{{ ticket.reference }} · {{ ticket.subject }}</a>
+                <span class="status-pill">{{ ticket.get_status_display }}</span>
+            </div>
+        {% empty %}
+            <p>No tickets linked to this asset.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
